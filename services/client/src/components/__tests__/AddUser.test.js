@@ -1,6 +1,7 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import renderer from 'react-test-renderer'
+import toJson from 'enzyme-to-json'
 
 import AddUser from '../AddUser'
 
@@ -25,4 +26,13 @@ test('AddUser renders properly', () => {
 test('AddUser renders a snapshot properly', () => {
   const tree = renderer.create(<AddUser {...props} />).toJSON()
   expect(tree).toMatchSnapshot()
+})
+
+test('AddUser onSubmit function is called', () => {
+  const wrapper = shallow(<AddUser {...props} />)
+  const element = wrapper.find('form')
+  const preventDefault = jest.fn()
+  element.simulate('submit')
+  expect(toJson(wrapper)).toMatchSnapshot()
+  expect(props.addUser).toBeCalled()
 })
