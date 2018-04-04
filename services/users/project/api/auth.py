@@ -23,7 +23,7 @@ def register_user():
     email = post_data.get('email')
     password = post_data.get('password')
 
-    if None in (username, email, password):
+    if password is None:
         return jsonify(response_object), 400
 
     try:
@@ -63,6 +63,7 @@ def login_user():
         'status': 'fail',
         'message': 'Invalid payload.'
     }
+
     if not post_data:
         return jsonify(response_object), 400
 

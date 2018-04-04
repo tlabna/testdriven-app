@@ -214,6 +214,17 @@ class TestAuthBlueprint(BaseTestCase):
                 data['message'] == 'Invalid token. Please log in again.')
             self.assertEqual(response.status_code, 401)
 
+    def test_invalid_logout_no_auth_header(self):
+        with self.client:
+            response = self.client.get(
+                '/auth/logout',
+                headers={})
+            data = json.loads(response.data.decode())
+            self.assertTrue(data['status'] == 'fail')
+            self.assertTrue(
+                data['message'] == 'Provide a valid auth token.')
+            self.assertEqual(response.status_code, 403)
+
     def test_user_status(self):
         add_user('test', 'test@test.com', 'test')
         with self.client:
@@ -247,4 +258,15 @@ class TestAuthBlueprint(BaseTestCase):
             self.assertTrue(data['status'] == 'fail')
             self.assertTrue(
                 data['message'] == 'Invalid token. Please log in again.')
+            self.assertEqual(response.status_code, 401)
+
+    def test_invalid_status_no_auth_header(self):
+        with self.client:
+            response = self.client.get(
+                '/auth/status',
+                headers={})
+            data = json.loads(response.data.decode())
+            self.assertTrue(data['status'] == 'fail')
+            self.assertTrue(
+                data['message'] == 'Provide a valid auth token.')
             self.assertEqual(response.status_code, 401)
