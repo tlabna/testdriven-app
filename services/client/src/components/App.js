@@ -5,12 +5,14 @@ import axios from 'axios'
 import UsersList from './UsersList'
 import AddUser from './AddUser'
 import About from './About'
+import NavBar from './NavBar'
 
 export default class App extends Component {
   state = {
     users: [],
     username: '',
     email: '',
+    title: 'TestDrivenApp',
   }
 
   componentDidMount() {
@@ -53,36 +55,39 @@ export default class App extends Component {
   }
 
   render() {
-    const { users, username, email } = this.state
+    const { users, username, email, title } = this.state
 
     return (
       <Router>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <br />
-              <Switch>
-                <Route
-                  exact={true}
-                  path="/"
-                  render={() => (
-                    <div>
-                      <h1>{'All Users'}</h1>
-                      <hr />
-                      <br />
-                      <AddUser
-                        username={username}
-                        email={email}
-                        addUser={this.addUser}
-                        handleChange={this.handleChange}
-                      />
-                      <br />
-                      <UsersList users={users} />
-                    </div>
-                  )}
-                />
-                <Route exact={true} path="/about" component={About} />
-              </Switch>
+        <div>
+          <NavBar title={title} />
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <br />
+                <Switch>
+                  <Route
+                    exact={true}
+                    path="/"
+                    render={() => (
+                      <div>
+                        <h1>{'All Users'}</h1>
+                        <hr />
+                        <br />
+                        <AddUser
+                          username={username}
+                          email={email}
+                          addUser={this.addUser}
+                          handleChange={this.handleChange}
+                        />
+                        <br />
+                        <UsersList users={users} />
+                      </div>
+                    )}
+                  />
+                  <Route exact={true} path="/about" component={About} />
+                </Switch>
+              </div>
             </div>
           </div>
         </div>

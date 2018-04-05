@@ -12,7 +12,7 @@ export default function UsersList(props) {
     <div>
       {users.map((user) => {
         return (
-          <h4 key={user.id} className="card card-body bg-light">
+          <h4 key={user.id} className="well">
             {user.username}
           </h4>
         )

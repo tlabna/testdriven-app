@@ -13,7 +13,7 @@ describe('About Component', () => {
   })
 })
 
-describe('App Component Snapshot', () => {
+describe('About Component Snapshot', () => {
   test('renders', () => {
     const tree = renderer.create(<About />).toJSON()
     expect(tree).toMatchSnapshot()
