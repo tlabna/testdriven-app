@@ -6,6 +6,7 @@ import UsersList from './UsersList'
 import AddUser from './AddUser'
 import About from './About'
 import NavBar from './NavBar'
+import Form from './Form'
 
 export default class App extends Component {
   state = {
@@ -13,6 +14,11 @@ export default class App extends Component {
     username: '',
     email: '',
     title: 'TestDrivenApp',
+    formData: {
+      username: '',
+      email: '',
+      password: '',
+    },
   }
 
   componentDidMount() {
@@ -55,7 +61,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { users, username, email, title } = this.state
+    const { users, username, email, title, formData } = this.state
 
     return (
       <Router>
@@ -86,6 +92,20 @@ export default class App extends Component {
                     )}
                   />
                   <Route exact={true} path="/about" component={About} />
+                  <Route
+                    exact={true}
+                    path="/register"
+                    render={() => (
+                      <Form formType={'Register'} formData={formData} />
+                    )}
+                  />
+                  <Route
+                    exact={true}
+                    path="/login"
+                    render={() => (
+                      <Form formType={'Login'} formData={formData} />
+                    )}
+                  />
                 </Switch>
               </div>
             </div>
