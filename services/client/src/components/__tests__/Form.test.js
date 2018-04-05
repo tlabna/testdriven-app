@@ -14,6 +14,10 @@ const testData = [
     },
     handleFormChange: jest.fn(),
     handleUserFormSubmit: jest.fn(),
+    isAuthenticated: false,
+    match: {
+      url: '/register',
+    },
   },
   {
     formType: 'Login',
@@ -23,6 +27,10 @@ const testData = [
     },
     handleFormChange: jest.fn(),
     handleUserFormSubmit: jest.fn(),
+    isAuthenticated: false,
+    match: {
+      url: '/login',
+    },
   },
 ]
 

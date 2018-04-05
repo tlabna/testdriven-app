@@ -1,22 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 
 Form.propTypes = {
   formType: PropTypes.string.isRequired,
   handleUserFormSubmit: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,
   handleFormChange: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  match: PropTypes.object.isRequired,
 }
 
 export default function Form(props) {
-  const { formType, handleUserFormSubmit, formData, handleFormChange } = props
+  const {
+    formType,
+    handleUserFormSubmit,
+    formData,
+    handleFormChange,
+    isAuthenticated,
+    match,
+  } = props
+
+  const param = match.url.split('/').reverse()[0]
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />
+  }
 
   return (
     <div>
       <h1>{formType}</h1>
       <hr />
       <br />
-      <form onSubmit={(event) => handleUserFormSubmit(event)}>
+      <form onSubmit={(event) => handleUserFormSubmit(event, param)}>
         {formType === 'Register' && (
           <div className="form-group">
             <input
