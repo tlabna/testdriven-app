@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
 
 import App from '../App'
@@ -8,22 +8,22 @@ import UsersList from '../UsersList'
 
 describe('App Component', () => {
   it('renders AddUser component', () => {
-    const wrapper = shallow(<App />)
+    const wrapper = mount(<App />)
     expect(wrapper.find(AddUser)).toHaveLength(1)
   })
 
   it('renders UsersList component', () => {
-    const wrapper = shallow(<App />)
+    const wrapper = mount(<App />)
     expect(wrapper.find(UsersList)).toHaveLength(1)
   })
 
   it(`renders header 'All Users'`, () => {
-    const wrapper = shallow(<App />)
+    const wrapper = mount(<App />)
     expect(wrapper.find('h1').text()).toBe('All Users')
   })
 
   it('passes props to AddUser component', () => {
-    const wrapper = shallow(<App />)
+    const wrapper = mount(<App />)
     let addUserWrapper = wrapper.find(AddUser)
 
     expect(addUserWrapper.props().username).toEqual('')

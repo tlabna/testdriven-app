@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import axios from 'axios'
+
 import UsersList from './UsersList'
 import AddUser from './AddUser'
+import About from './About'
 
 export default class App extends Component {
   state = {
@@ -53,24 +56,37 @@ export default class App extends Component {
     const { users, username, email } = this.state
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <br />
-            <h1>{'All Users'}</h1>
-            <hr />
-            <br />
-            <AddUser
-              username={username}
-              email={email}
-              addUser={this.addUser}
-              handleChange={this.handleChange}
-            />
-            <br />
-            <UsersList users={users} />
+      <Router>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <br />
+              <Switch>
+                <Route
+                  exact={true}
+                  path="/"
+                  render={() => (
+                    <div>
+                      <h1>{'All Users'}</h1>
+                      <hr />
+                      <br />
+                      <AddUser
+                        username={username}
+                        email={email}
+                        addUser={this.addUser}
+                        handleChange={this.handleChange}
+                      />
+                      <br />
+                      <UsersList users={users} />
+                    </div>
+                  )}
+                />
+                <Route exact={true} path="/about" component={About} />
+              </Switch>
+            </div>
           </div>
         </div>
-      </div>
+      </Router>
     )
   }
 }
