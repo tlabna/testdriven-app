@@ -62,20 +62,22 @@ export default class App extends Component {
     this.setState(obj)
   }
 
-  handleUserFormSubmit = (event, param) => {
+  handleUserFormSubmit = (event, fromUrl) => {
     event.preventDefault()
     let data = {
       email: this.state.formData.email,
       password: this.state.formData.password,
     }
+    const param = fromUrl.split('/').reverse()[0]
 
-    if (param === 'register') {
+    if (fromUrl === '/register') {
       data.username = this.state.formData.username
     }
 
     const url = `${process.env.REACT_APP_USERS_SERVICE_URL}/auth/${param}`
 
-    axios.post(url, data)
+    axios
+      .post(url, data)
       .then((res) => {
         this.setState({
           formData: {

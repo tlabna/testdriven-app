@@ -21,8 +21,6 @@ export default function Form(props) {
     match,
   } = props
 
-  const param = match.url.split('/').reverse()[0]
-
   if (isAuthenticated) {
     return <Redirect to="/" />
   }
@@ -32,7 +30,7 @@ export default function Form(props) {
       <h1>{formType}</h1>
       <hr />
       <br />
-      <form onSubmit={(event) => handleUserFormSubmit(event, param)}>
+      <form onSubmit={(event) => handleUserFormSubmit(event, match.url)}>
         {formType === 'Register' && (
           <div className="form-group">
             <input
