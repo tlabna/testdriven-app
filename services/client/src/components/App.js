@@ -8,6 +8,7 @@ import About from './About'
 import NavBar from './NavBar'
 import Form from './Form'
 import Logout from './Logout'
+import UserStatus from './UserStatus'
 
 export default class App extends Component {
   state = {
@@ -123,7 +124,7 @@ export default class App extends Component {
     return (
       <Router>
         <div>
-          <NavBar title={title} />
+          <NavBar title={title} isAuthenticated={isAuthenticated} />
           <div className="container">
             <div className="row">
               <div className="col-md-6">
@@ -161,6 +162,13 @@ export default class App extends Component {
                         isAuthenticated={isAuthenticated}
                         match={match}
                       />
+                    )}
+                  />
+                  <Route
+                    exact={true}
+                    path="/status"
+                    render={() => (
+                      <UserStatus isAuthenticated={isAuthenticated} />
                     )}
                   />
                   <Route

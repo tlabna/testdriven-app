@@ -1,29 +1,46 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import renderer from 'react-test-renderer'
 
 import App from '../App'
 import AddUser from '../AddUser'
 import UsersList from '../UsersList'
+import NavBar from '../NavBar'
 
 describe('App Component', () => {
+  let wrapper = mount(<App />)
+  const shallowWrapper = shallow(<App />)
+
+  it('renders NavBar component', () => {
+    expect(wrapper.find(NavBar)).toHaveLength(1)
+  })
+
+  it('passes props to NavBar component', () => {
+    let navBarWrapper = wrapper.find(NavBar)
+
+    wrapper.setState({
+      title: 'title',
+      isAuthenticated: true,
+    })
+
+    navBarWrapper = wrapper.find(NavBar)
+    expect(navBarWrapper.props().title).toEqual('title')
+    expect(navBarWrapper.props().isAuthenticated).toEqual(true)
+  })
+
   it('renders AddUser component', () => {
-    const wrapper = mount(<App />)
     expect(wrapper.find(AddUser)).toHaveLength(1)
   })
 
   it('renders UsersList component', () => {
-    const wrapper = mount(<App />)
     expect(wrapper.find(UsersList)).toHaveLength(1)
   })
 
   it(`renders header 'All Users'`, () => {
-    const wrapper = mount(<App />)
     expect(wrapper.find('h1').text()).toBe('All Users')
   })
 
   it('passes props to AddUser component', () => {
-    const wrapper = mount(<App />)
     let addUserWrapper = wrapper.find(AddUser)
 
     expect(addUserWrapper.props().username).toEqual('')
@@ -43,11 +60,18 @@ describe('App Component', () => {
     expect(addUserWrapper.props().username).toEqual('test')
     expect(addUserWrapper.props().email).toEqual('test@test.com')
   })
-})
 
-describe('App Component Snapshot', () => {
-  test('renders', () => {
-    const tree = renderer.create(<App />).toJSON()
+  it('renders a snapshot properly when user is not authenticated', () => {
+    const tree = renderer.create(shallowWrapper).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+
+  it('renders a snapshot properly when user is authenticated', () => {
+    shallowWrapper.setState({
+      isAuthenticated: true,
+    })
+
+    const tree = renderer.create(shallowWrapper).toJSON()
     expect(tree).toMatchSnapshot()
   })
 })
