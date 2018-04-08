@@ -15,7 +15,7 @@ describe('UserStatus Component when authenticated', () => {
     localStorage.setItem('authToken', 'token')
   })
 
-  it('can get authToken from localStorage', ()=> {
+  it('can get authToken from localStorage', () => {
     expect(localStorage.getItem('authToken')).toBe('token')
   })
 
@@ -24,10 +24,12 @@ describe('UserStatus Component when authenticated', () => {
       id: '1',
       email: 'test@test.com',
       username: 'test',
+      active: 'false',
+      admin: 'false',
     })
     const element = wrapper.find('li')
 
-    expect(element.length).toBe(3)
+    expect(element.length).toBe(5)
     expect(element.get(0).props.children[0].props.children).toContain(
       'User ID: '
     )
@@ -38,6 +40,12 @@ describe('UserStatus Component when authenticated', () => {
       'Username: '
     )
     expect(element.get(2).props.children[1]).toBe(wrapper.state('username'))
+    expect(element.get(3).props.children[0].props.children).toContain(
+      'Active: '
+    )
+    expect(element.get(3).props.children[1]).toBe(wrapper.state('active'))
+    expect(element.get(4).props.children[0].props.children).toContain('Admin: ')
+    expect(element.get(4).props.children[1]).toBe(wrapper.state('admin'))
   })
 
   it('renders a snapshot correctly', () => {

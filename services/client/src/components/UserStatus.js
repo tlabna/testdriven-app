@@ -12,6 +12,8 @@ export default class UserStatus extends Component {
     email: '',
     username: '',
     id: '',
+    active: '',
+    admin: '',
   }
 
   componentDidMount() {
@@ -37,13 +39,15 @@ export default class UserStatus extends Component {
           id: data.id,
           email: data.email,
           username: data.username,
+          active: String(data.active),
+          admin: String(data.admin),
         })
       })
       .catch((error) => console.warn(error))
   }
 
   render() {
-    const { id, email, username } = this.state
+    const { id, email, username, active, admin } = this.state
 
     if (!this.props.isAuthenticated) {
       return (
@@ -69,6 +73,14 @@ export default class UserStatus extends Component {
           <li>
             <strong>{'Username: '}</strong>
             {username}
+          </li>
+          <li>
+            <strong>{'Active: '}</strong>
+            {active}
+          </li>
+          <li>
+            <strong>{'Admin: '}</strong>
+            {admin}
           </li>
         </ul>
       </div>

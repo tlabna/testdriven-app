@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import axios from 'axios'
 
 import UsersList from './UsersList'
-import AddUser from './AddUser'
 import About from './About'
 import NavBar from './NavBar'
 import Form from './Form'
@@ -112,14 +111,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {
-      users,
-      username,
-      email,
-      title,
-      formData,
-      isAuthenticated,
-    } = this.state
+    const { users, title, formData, isAuthenticated } = this.state
 
     return (
       <Router>
@@ -133,21 +125,7 @@ export default class App extends Component {
                   <Route
                     exact={true}
                     path="/"
-                    render={() => (
-                      <div>
-                        <h1>{'All Users'}</h1>
-                        <hr />
-                        <br />
-                        <AddUser
-                          username={username}
-                          email={email}
-                          addUser={this.addUser}
-                          handleChange={this.handleChange}
-                        />
-                        <br />
-                        <UsersList users={users} />
-                      </div>
-                    )}
+                    render={() => <UsersList users={users} />}
                   />
                   <Route exact={true} path="/about" component={About} />
                   <Route

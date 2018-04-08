@@ -3,7 +3,6 @@ import { mount, shallow } from 'enzyme'
 import renderer from 'react-test-renderer'
 
 import App from '../App'
-import AddUser from '../AddUser'
 import UsersList from '../UsersList'
 import NavBar from '../NavBar'
 
@@ -28,9 +27,12 @@ describe('App Component', () => {
     expect(navBarWrapper.props().isAuthenticated).toEqual(true)
   })
 
-  it('renders AddUser component', () => {
-    expect(wrapper.find(AddUser)).toHaveLength(1)
-  })
+  /**
+   * Removing AddUser test for now since we're not using it
+   */
+  // it('renders AddUser component', () => {
+  //   expect(wrapper.find(AddUser)).toHaveLength(1)
+  // })
 
   it('renders UsersList component', () => {
     expect(wrapper.find(UsersList)).toHaveLength(1)
@@ -40,26 +42,29 @@ describe('App Component', () => {
     expect(wrapper.find('h1').text()).toBe('All Users')
   })
 
-  it('passes props to AddUser component', () => {
-    let addUserWrapper = wrapper.find(AddUser)
+  /**
+   * Removing AddUser test for now since we're not using it
+   */
+  // it('passes props to AddUser component', () => {
+  //   let addUserWrapper = wrapper.find(AddUser)
 
-    expect(addUserWrapper.props().username).toEqual('')
-    expect(addUserWrapper.props().email).toEqual('')
-    // Checking instance because wrapper has method as instance and not prop
-    expect(addUserWrapper.props().addUser).toBe(wrapper.instance().addUser)
-    expect(addUserWrapper.props().handleChange).toBe(
-      wrapper.instance().handleChange
-    )
+  //   expect(addUserWrapper.props().username).toEqual('')
+  //   expect(addUserWrapper.props().email).toEqual('')
+  //   // Checking instance because wrapper has method as instance and not prop
+  //   expect(addUserWrapper.props().addUser).toBe(wrapper.instance().addUser)
+  //   expect(addUserWrapper.props().handleChange).toBe(
+  //     wrapper.instance().handleChange
+  //   )
 
-    wrapper.setState({
-      username: 'test',
-      email: 'test@test.com',
-    })
+  //   wrapper.setState({
+  //     username: 'test',
+  //     email: 'test@test.com',
+  //   })
 
-    addUserWrapper = wrapper.find(AddUser)
-    expect(addUserWrapper.props().username).toEqual('test')
-    expect(addUserWrapper.props().email).toEqual('test@test.com')
-  })
+  //   addUserWrapper = wrapper.find(AddUser)
+  //   expect(addUserWrapper.props().username).toEqual('test')
+  //   expect(addUserWrapper.props().email).toEqual('test@test.com')
+  // })
 
   it('renders a snapshot properly when user is not authenticated', () => {
     const tree = renderer.create(shallowWrapper).toJSON()
