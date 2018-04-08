@@ -9,11 +9,7 @@ from project.api.models import User
 COV = coverage.coverage(
     branch=True,
     include='project/*',
-    omit=[
-        'project/tests/*',
-        'project/config.py'
-    ]
-)
+    omit=['project/tests/*', 'project/config.py'])
 COV.start()
 
 app = create_app()
@@ -30,16 +26,18 @@ def recreate_db():
 @cli.command()
 def seed_db():
     """Seeds the database"""
-    db.session.add(User(
-        username='john_doe',
-        email="john_doe@gmail.com",
-        password='testingpassword',
-    ))
-    db.session.add(User(
-        username='michaelmontreal',
-        email="michael@montreal.org",
-        password='testingpassword',
-    ))
+    db.session.add(
+        User(
+            username='john_doe',
+            email="john_doe@gmail.com",
+            password='testingpassword',
+        ))
+    db.session.add(
+        User(
+            username='michaelmontreal',
+            email="michael@montreal.org",
+            password='testingpassword',
+        ))
     db.session.commit()
 
 
